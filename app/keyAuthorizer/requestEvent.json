@@ -1,0 +1,44 @@
+{
+    "version": "2.0",
+    "type": "REQUEST",
+    "routeArn": "arn:aws:execute-api:eu-central-1:385808790715:p4n6hle8qk/$default/GET/uploads",
+    "identitySource": [
+        "1230456789",
+        "xray"
+    ],
+    "routeKey": "GET /uploads",
+    "rawPath": "/uploads",
+    "rawQueryString": "target=xray",
+    "headers": {
+        "accept": "*/*",
+        "authorization": "1230456789",
+        "content-length": "0",
+        "host": "p4n6hle8qk.execute-api.eu-central-1.amazonaws.com",
+        "user-agent": "curl/7.68.0",
+        "x-amzn-trace-id": "Root=1-602e6f32-6c620901498ff6c235068bf4",
+        "x-forwarded-for": "95.91.212.121",
+        "x-forwarded-port": "443",
+        "x-forwarded-proto": "https"
+    },
+    "queryStringParameters": {
+        "target": "xray"
+    },
+    "requestContext": {
+        "accountId": "385808790715",
+        "apiId": "p4n6hle8qk",
+        "domainName": "p4n6hle8qk.execute-api.eu-central-1.amazonaws.com",
+        "domainPrefix": "p4n6hle8qk",
+        "http": {
+            "method": "GET",
+            "path": "/uploads",
+            "protocol": "HTTP/1.1",
+            "sourceIp": "95.91.212.121",
+            "userAgent": "curl/7.68.0"
+        },
+        "requestId": "a8ZP7ghfliAEJiw=",
+        "routeKey": "GET /uploads",
+        "stage": "$default",
+        "time": "18/Feb/2021:13:44:18 +0000",
+        "timeEpoch": 1613655858624
+    }
+}

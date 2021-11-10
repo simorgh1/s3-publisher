@@ -1,0 +1,24 @@
+{
+    "fields": {
+        "project": {
+            "key": "TMAD"
+        },
+        "summary": "Test Execution for robot Execution",
+        "description": "Sample tests for experiment. Results submitted by [XrayPublisher|ADASDAI-2179]",
+        "issuetype": {
+            "id": "10502"
+         },
+        "customfield_12402":[
+            {"value": "SW Integration Test"}
+        ],
+        "customfield_11711":[
+            {"value": "ADAS"}
+        ],
+        "customfield_11125":[
+            "AGX"
+        ],
+        "labels": [
+            "None"
+        ]
+    }
+}

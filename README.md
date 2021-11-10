@@ -1,0 +1,40 @@
+# Xray Publisher
+
+Provides a Rest Api for uploading the test results to the Xray Robot in Jira.
+
+## Overview
+
+This Application is designed to leverage the Serverless architecture by using the AWS Lambda functions and HttpApi which uses an Authorizer for Client authentication.
+
+The communication flow is based on a decoupled design so that the Lambda function for uploading the test artifacts is not directly used. Instead, after a successfull client authentication, an S3 signed Url is generated that could be used to upload the test results.
+
+## System Requirements
+
+- AWS Cli ([configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html))
+- Python 3.8
+- NodeJs 12.x
+- AWS [SAM](https://aws.amazon.com/serverless/sam/)
+- jq
+
+AWS Serverless Application Model was used to design, build and deploy this application which uses Lambda function, HttpApi and S3 buckets. SAM infrastructure as code template is inherited from CloudFormation and the current template is used to deploy all infrastructure used by this application.
+
+## Deployment
+
+For deploying the application in a new environment, you should package and publish the application to sam repository once, after that all subsequesnt build and deployments could be applied using related sam commands.
+
+Using publish.sh would validate the sam template, build and deploy it to the configured aws region. For the first deployment use up argument, so the missing lambda notification is configured.
+
+After deployment, please configure the environment variables for the authorizer and publish test artifacts lambda functions.
+
+## Test
+
+For testing the functionality, switch to the test folder and run **upload-results.py** command, it will authenticate the client and get the signed url for uploading a test file to xray publisher. Please update the authorization environment variable according to the environment value you set in the authorizer function. For more information, look into the AuthorizerAPIKey variable in the sam template.
+
+## Reference
+
+- Jira Ticket: [ADASDAI-2171](https://issue.swf.daimler.com/browse/ADASDAI-2179)
+- Jira Xray Results: [TMAD Issues](https://issue.swf.daimler.com/projects/TMAD/issues)
+
+## Usage
+
+Please add your request into the related Jira ticket, since the application is still in the test stage.

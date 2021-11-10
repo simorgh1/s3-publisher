@@ -1,0 +1,6 @@
+NotificationConfiguration:
+  LambdaFunctionConfigurations:
+    - Id: OnArtifactsUploaded
+      Events:
+        - s3:ObjectCreated:*
+      LambdaFunctionArn: PublishArtifactsFunction
