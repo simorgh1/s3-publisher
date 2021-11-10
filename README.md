@@ -1,6 +1,6 @@
-# Xray Publisher
+# S3 Publisher
 
-Provides a Rest Api for uploading the test results to the Xray Robot in Jira.
+Provides a Rest Api for uploading the test results to S3 bucket.
 
 ## Overview
 
@@ -11,7 +11,7 @@ The communication flow is based on a decoupled design so that the Lambda functio
 ## System Requirements
 
 - AWS Cli ([configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html))
-- Python 3.8
+- Python 3.9
 - NodeJs 12.x
 - AWS [SAM](https://aws.amazon.com/serverless/sam/)
 - jq
@@ -20,7 +20,7 @@ AWS Serverless Application Model was used to design, build and deploy this appli
 
 ## Deployment
 
-For deploying the application in a new environment, you should package and publish the application to sam repository once, after that all subsequesnt build and deployments could be applied using related sam commands.
+For deploying the application in a new environment, you should package and publish the application to sam repository once, after that all subsequent build and deployments could be applied using related sam commands.
 
 Using publish.sh would validate the sam template, build and deploy it to the configured aws region. For the first deployment use up argument, so the missing lambda notification is configured.
 
@@ -28,13 +28,16 @@ After deployment, please configure the environment variables for the authorizer 
 
 ## Test
 
-For testing the functionality, switch to the test folder and run **upload-results.py** command, it will authenticate the client and get the signed url for uploading a test file to xray publisher. Please update the authorization environment variable according to the environment value you set in the authorizer function. For more information, look into the AuthorizerAPIKey variable in the sam template.
+For testing the functionality, switch to the test folder and run **upload-results.py** command, it will authenticate the client and get the signed url for uploading a test file to s3 bucket. Please update the authorization environment variable according to the environment value you set in the authorizer function. For more information, look into the AuthorizerAPIKey variable in the sam template.
 
-## Reference
+### Local testing keyAuthorizer
 
-- Jira Ticket: [ADASDAI-2171](https://issue.swf.daimler.com/browse/ADASDAI-2179)
-- Jira Xray Results: [TMAD Issues](https://issue.swf.daimler.com/projects/TMAD/issues)
+```bash
+app/$ sam local invoke ApiKeyAuthorizer -e keyAuthorizer/requestEvent.json -n keyAuthorizer/env.json
+```
 
-## Usage
+### Local testing getSignedURL
 
-Please add your request into the related Jira ticket, since the application is still in the test stage.
+```bash
+app/$ sam local invoke UploadRequest
+```
