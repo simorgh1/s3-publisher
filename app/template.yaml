@@ -82,7 +82,7 @@ Resources:
     Properties:
       CodeUri: publishArtifacts/
       Handler: app.s3_publish_handler
-      Runtime: python3.8
+      Runtime: python3.9
       Timeout: 3
       MemorySize: 128
       Role:

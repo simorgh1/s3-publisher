@@ -9,31 +9,42 @@
     // Use the -bullseye variants if you are on a M1 mac.
     "args": { "VARIANT": "16-bullseye" }
   },
-  
-  // mount aws credentials into devcontainer
-  "runArgs": ["-v", "${localEnv:HOME}/.aws:/home/node/.aws:ro"],
+
+  // initialize docker and mount aws credentials into devcontainer
+  "runArgs": [
+    "--init",
+    "--privileged",
+    "-v",
+    "${localEnv:HOME}/.aws:/home/node/.aws:ro"
+  ],
+
+  "mounts": ["source=dind-var-lib-docker,target=/var/lib/docker,type=volume"],
+  "overrideCommand": false,
+
+  "containerEnv": {"SAM_CLI_TELEMETRY":"0"},
 
   // Set *default* container specific settings.json values on container create.
   "settings": {},
 
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
-	"dbaeumer.vscode-eslint",
-	"eamodio.gitlens",
-	"redhat.vscode-yaml",
-	"shd101wyy.markdown-preview-enhanced",
-	"oliversturm.fix-json",
-	"donjayamanne.githistory",
-	"pkief.material-icon-theme",
-	"esbenp.prettier-vscode",
-	"streetsidesoftware.code-spell-checker",
-	"amazonwebservices.aws-toolkit-vscode",
-	"oderwat.indent-rainbow",
-	"sirtori.indenticator",
-	"kddejong.vscode-cfn-lint",
-	"actboy168.tasks",
-	"ms-python.python"
-],
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "redhat.vscode-yaml",
+    "shd101wyy.markdown-preview-enhanced",
+    "oliversturm.fix-json",
+    "donjayamanne.githistory",
+    "pkief.material-icon-theme",
+    "esbenp.prettier-vscode",
+    "streetsidesoftware.code-spell-checker",
+    "amazonwebservices.aws-toolkit-vscode",
+    "oderwat.indent-rainbow",
+    "sirtori.indenticator",
+    "kddejong.vscode-cfn-lint",
+    "actboy168.tasks",
+    "ms-python.python",
+	"ms-azuretools.vscode-docker"
+  ],
 
   "remoteUser": "node"
 }
