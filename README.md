@@ -22,7 +22,7 @@ AWS Serverless Application Model was used to design, build and deploy this appli
 
 For deploying the application in a new environment, you should package and publish the application to sam repository once, after that all subsequent build and deployments could be applied using related sam commands.
 
-Using publish.sh would validate the sam template, build and deploy it to the configured aws region. For the first deployment use up argument, so the missing lambda notification is configured.
+Using **deploy.sh** script, it would validate the sam template, build and deploy it to the configured aws region. It also adds the missing lambda notification.
 
 After deployment, please configure the environment variables for the authorizer and publish test artifacts lambda functions.
 
