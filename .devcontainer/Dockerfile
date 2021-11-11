@@ -31,8 +31,8 @@ RUN apt-get update \
 
 VOLUME [ "/var/lib/docker" ]
 
-# Setting the ENTRYPOINT to docker-init.sh will start up the Docker Engine 
-# inside the container "overrideCommand": false is set in devcontainer.json. 
+# Setting the ENTRYPOINT to docker-init.sh will start up the Docker Engine
+# inside the container "overrideCommand": false is set in devcontainer.json.
 # The script will also execute CMD if you need to alter startup behaviors.
 ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 CMD [ "sleep", "infinity" ]
@@ -47,7 +47,7 @@ RUN apt-get update -y && \
     xdg-utils \
     python3 \
     python3-pip && \
-    pip3 install shyaml cfn-lint
+    pip3 install shyaml cfn-lint pre-commit
 
 # Install sam
 

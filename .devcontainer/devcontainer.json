@@ -46,5 +46,6 @@
 	"ms-azuretools.vscode-docker"
   ],
 
-  "remoteUser": "node"
+  "remoteUser": "node",
+  "postStartCommand": "pre-commit install"
 }
