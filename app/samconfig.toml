@@ -1,0 +1,12 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "s3-publisher"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1ntzybb7a6fqf"
+s3_prefix = "s3-publisher"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "AuthorizerAPIKey=\"1230456789\""
+image_repositories = []

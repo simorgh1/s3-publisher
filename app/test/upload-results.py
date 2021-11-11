@@ -12,7 +12,9 @@ class UploadResponse(object):
         self.UploadURL = uploadURL
 
 
-UploadsApiEndpoint = 'https://e1ti7jjec5.execute-api.eu-central-1.amazonaws.com/uploads?target=xray'
+UploadsApiEndpoint = (
+    "https://e1ti7jjec5.execute-api.eu-central-1.amazonaws.com/uploads?target=xray"
+)
 
 if not len(sys.argv) == 3:
     print("python3 upload-results.py test-results.xml test-results.json")
@@ -36,17 +38,16 @@ if not os.path.exists(sys.argv[2]):
 
 upload_key = None
 
-if environ.get('UploadAPIKey') is not None:
-    upload_key = os.environ['UploadAPIKey']
+if environ.get("UploadAPIKey") is not None:
+    upload_key = os.environ["UploadAPIKey"]
 
 if not upload_key:
     print("Please define the UploadAPIKey in env")
     exit()
 
-print('Requesting upload to %s' % UploadsApiEndpoint)
+print("Requesting upload to %s" % UploadsApiEndpoint)
 
-response = requests.get(UploadsApiEndpoint, headers={
-                        "authorization": upload_key})
+response = requests.get(UploadsApiEndpoint, headers={"authorization": upload_key})
 
 if response.status_code == 200:
     print("Authenticated.")
@@ -62,13 +63,17 @@ if response.status_code == 200:
     tar.add(sys.argv[2], arcname=os.path.basename(sys.argv[2]))
     tar.close()
 
-    upload_data = open(upload_tar, 'rb').read()
+    upload_data = open(upload_tar, "rb").read()
 
     print("Uploading %s ..." % upload_tar)
-    response = requests.put(upload_response.UploadURL, data=upload_data, headers={
-                            "Content-Type": "application/binary"})
-    print("Upload was: %s with Http status: %s" %
-          (response.reason, response.status_code))
+    response = requests.put(
+        upload_response.UploadURL,
+        data=upload_data,
+        headers={"Content-Type": "application/binary"},
+    )
+    print(
+        "Upload was: %s with Http status: %s" % (response.reason, response.status_code)
+    )
 
 else:
     print("Requesting upload failed. Http Status:%s" % response.status_code)
