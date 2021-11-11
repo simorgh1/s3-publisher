@@ -10,13 +10,21 @@ The communication flow is based on a decoupled design so that the Lambda functio
 
 ## System Requirements
 
+- Docker
+- VS Code
 - AWS Cli ([configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html))
+
+Already in Dev Container:
 - Python 3.9
 - NodeJs 16.x
 - AWS [SAM](https://aws.amazon.com/serverless/sam/)
 - jq
 
 AWS Serverless Application Model was used to design, build and deploy this application which uses Lambda function, HttpApi and S3 buckets. SAM infrastructure as code template is inherited from CloudFormation and the current template is used to deploy all infrastructure used by this application.
+
+## Dev Container
+
+After cloning the git repository, open the folder in VS Code and if docker is running, it asks you to open the workspace in [Dev Container](https://code.visualstudio.com/docs/remote/containers). All required tools are already installed in the Dev Container, and you could start working.
 
 ## Deployment
 
