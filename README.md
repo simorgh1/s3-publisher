@@ -41,3 +41,19 @@ app/$ sam local invoke ApiKeyAuthorizer -e keyAuthorizer/requestEvent.json -n ke
 ```bash
 app/$ sam local invoke UploadRequest
 ```
+
+## Cleanup
+
+In order to remove all created aws resources during deployment, run the following command in app folder
+
+```bash
+app/$ sam delete
+```
+
+## Code formatting
+
+Automatic Code formatting is applied using [pre-commit](https://pre-commit.com) hooks.
+
+pre-commit manages all of your hooks using a yaml config file: *.pre-commit-config.yaml*
+
+When you run git commit command, it will first execute the configured pre-commit hooks for the staged files.
