@@ -6,13 +6,13 @@ Provides a Rest Api for uploading the test results to S3 bucket.
 
 This Application is designed to leverage the Serverless architecture by using the AWS Lambda functions and HttpApi which uses an Authorizer for Client authentication.
 
-The communication flow is based on a decoupled design so that the Lambda function for uploading the test artifacts is not directly used. Instead, after a successfull client authentication, an S3 signed Url is generated that could be used to upload the test results.
+The communication flow is based on a decoupled design so that the Lambda function for uploading the test artifacts is not directly used. Instead, after a successful client authentication, an S3 signed Url is generated that could be used to upload the test results.
 
 ## System Requirements
 
 - AWS Cli ([configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html))
 - Python 3.9
-- NodeJs 12.x
+- NodeJs 16.x
 - AWS [SAM](https://aws.amazon.com/serverless/sam/)
 - jq
 
@@ -33,13 +33,13 @@ For testing the functionality, switch to the test folder and run **upload-result
 ### Local testing keyAuthorizer
 
 ```bash
-app/$ sam local invoke ApiKeyAuthorizer -e keyAuthorizer/requestEvent.json -n keyAuthorizer/env.json
+/workspaces/s3-publisher (main) $ sam local invoke ApiKeyAuthorizer -e keyAuthorizer/requestEvent.json -n keyAuthorizer/env.json
 ```
 
 ### Local testing getSignedURL
 
 ```bash
-app/$ sam local invoke UploadRequest
+/workspaces/s3-publisher (main) $ sam local invoke UploadRequest
 ```
 
 ## Cleanup
@@ -47,12 +47,12 @@ app/$ sam local invoke UploadRequest
 In order to remove all created aws resources during deployment, run the following command in app folder
 
 ```bash
-app/$ sam delete
+/workspaces/s3-publisher (main) $ sam delete
 ```
 
 ## Code formatting
 
-Automatic Code formatting is applied using [pre-commit](https://pre-commit.com) hooks.
+Automatic Code formatting is done using [pre-commit](https://pre-commit.com) hooks.
 
 pre-commit manages all of your hooks using a yaml config file: *.pre-commit-config.yaml*
 
