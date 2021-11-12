@@ -1,12 +1,24 @@
 # S3 Publisher
 
-Provides a Rest Api for uploading the test results to S3 bucket.
+![Visits Badge](https://badges.pufler.dev/visits/simorgh1/s3-publisher)
+[![GitHub license](https://img.shields.io/github/license/simorgh1/s3-publisher)](https://github.com/simorgh1/s3-publisher/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/simorgh1/s3-publisher)](https://github.com/simorgh1/s3-publisher/stargazers)
+![Twitter Follow](https://img.shields.io/twitter/follow/bahrammaravandi?style=social)
+![LinkedIn Follow](https://shields.io/badge/style-bahram.maravandi-black?logo=linkedin&label=LinkedIn&link=https://www.linkedin.com/in/bahram.maravandi)
+
+Stargaze ![GitHub Repo stars](https://img.shields.io/github/stars/simorgh1/s3-publisher?style=social) if you find it useful.
+
+Provides infrastructure for uploading multiple artifacts to S3 bucket using signed url, that could be processed and uploaded to a defined target.
 
 ## Overview
 
 This Application is designed to leverage the Serverless architecture by using the AWS Lambda functions and HttpApi which uses an Authorizer for Client authentication.
 
-The communication flow is based on a decoupled design so that the Lambda function for uploading the test artifacts is not directly used. Instead, after a successful client authentication, an S3 signed Url is generated that could be used to upload the test results.
+The communication flow is based on a decoupled design so that the Lambda function for uploading the test artifacts is not directly used. Instead, after a successful client authentication, an S3 signed Url is generated that is used to upload the artifacts.
+
+### Process Workflow
+
+![Workflow](s3-publisher.png)
 
 ## System Requirements
 
@@ -15,6 +27,7 @@ The communication flow is based on a decoupled design so that the Lambda functio
 - AWS Cli ([configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html))
 
 Already in Dev Container:
+
 - Python 3.9
 - NodeJs 16.x
 - AWS [SAM](https://aws.amazon.com/serverless/sam/)
@@ -62,6 +75,6 @@ In order to remove all created aws resources during deployment, run the followin
 
 Automatic Code formatting is done using [pre-commit](https://pre-commit.com) hooks.
 
-pre-commit manages all of your hooks using a yaml config file: *.pre-commit-config.yaml*
+pre-commit manages all of your hooks using a yaml config file: _.pre-commit-config.yaml_
 
 When you run git commit command, it will first execute the configured pre-commit hooks for the staged files.
