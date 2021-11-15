@@ -1,15 +1,3 @@
 {
-    "fields": {
-        "project": {
-            "key": "XYZ"
-        },
-        "summary": "Test Execution",
-        "description": "Sample tests for experiment. Results submitted by S3Publisher",
-        "customfield_12402":[
-            {"value": "Some Test"}
-        ],
-        "labels": [
-            "None"
-        ]
-    }
+    "meta": "header file describing the log"
 }

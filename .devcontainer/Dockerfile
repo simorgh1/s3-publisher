@@ -47,7 +47,7 @@ RUN apt-get update -y && \
     xdg-utils \
     python3 \
     python3-pip && \
-    pip3 install shyaml cfn-lint pre-commit
+    pip3 install shyaml cfn-lint pre-commit black
 
 # Install sam
 

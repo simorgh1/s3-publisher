@@ -4,6 +4,8 @@ from os import environ
 import requests
 import json
 import tarfile
+import subprocess
+import pathlib
 
 
 class UploadResponse(object):
@@ -12,12 +14,21 @@ class UploadResponse(object):
         self.UploadURL = uploadURL
 
 
-UploadsApiEndpoint = (
-    "https://e1ti7jjec5.execute-api.eu-central-1.amazonaws.com/uploads?target=xray"
+result = subprocess.run(
+    os.path.join(pathlib.Path(__file__).parent.absolute(), "get-api.sh"),
+    stdout=subprocess.PIPE,
+    stderr=subprocess.PIPE,
+    text=True,
 )
+if result.stdout == "":
+    print("Upload api endpoint is not available, already deployed?")
+    exit()
+
+# update this endpoint to your Api gateway endpoint
+UploadsApiEndpoint = result.stdout
 
 if not len(sys.argv) == 3:
-    print("python3 upload-results.py test-results.xml test-results.json")
+    print("python3 upload-log.py test-log1.xml test-log1.json")
     exit()
 
 if not os.path.exists(sys.argv[1]):
