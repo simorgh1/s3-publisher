@@ -32,16 +32,22 @@ Already in Dev Container:
 - NodeJs 16.x
 - AWS [SAM](https://aws.amazon.com/serverless/sam/)
 - jq
+- pre-commit
+- black
 
-AWS Serverless Application Model was used to design, build and deploy this application which uses Lambda function, HttpApi and S3 buckets. SAM infrastructure as code template is inherited from CloudFormation and the current template is used to deploy all infrastructure used by this application.
+AWS Serverless Application Model was used to design, build and deploy this application which uses Lambda function, HttpApi and S3 buckets.
+
+SAM infrastructure as code template is inherited from CloudFormation and the current template is used to deploy all infrastructure used by this application.
 
 ## Dev Container
 
-After cloning the git repository, open the folder in VS Code and if docker is running, it asks you to open the workspace in [Dev Container](https://code.visualstudio.com/docs/remote/containers). All required tools are already installed in the Dev Container, and you could start working.
+After cloning the git repository, open the folder in VS Code and if docker is running, it asks you to open the workspace in [Dev Container](https://code.visualstudio.com/docs/remote/containers).
+
+All required tools are already installed in the Dev Container, and you could start working.
 
 ## Deployment
 
-For deploying the application in a new environment, you should package and publish the application to sam repository once, after that all subsequent build and deployments could be applied using related sam commands.
+For deploying the application in a new environment, you should package and publish the application to sam s3 bucket once, after that all subsequent build and deployments could be applied using related sam commands.
 
 Using **deploy.sh** script, it would validate the sam template, build and deploy it to the configured aws region. It also adds the missing lambda notification.
 
@@ -49,7 +55,11 @@ After deployment, please configure the environment variables for the authorizer 
 
 ## Test
 
-For testing the functionality, switch to the test folder and run *upload-log.py* command, it will get the api endpoint url, pack both log files, then authenticate the client and get the signed url for uploading the packed file to s3 bucket. The idea of this solution is, since S3 supports only a single file per upload, we pack our files, in this example 2 files as tar.gz and upload them to S3 where it will be unpacked and processed by *publishArtifacts* lambda function. Please update the authorization environment variable according to the environment value you set in the authorizer function. For more information, look into the *AuthorizerAPIKey* variable in the sam template.
+For testing the functionality, switch to the test folder and run *upload-log.py* command, it will get the api endpoint url, pack both log files, then authenticate the client and get the signed url for uploading the packed file to s3 bucket.
+
+The idea of this solution is, since S3 supports only a single file per upload, we pack our files, in this example 2 files as tar.gz and upload them to S3 where it will be unpacked and processed by *publishArtifacts* lambda function.
+
+Please update the authorization environment variable according to the environment value you set in the authorizer function. For more information, look into the *AuthorizerAPIKey* variable in the sam template.
 
 ```python
 /workspaces/s3-publisher/app/test (main) $ python3 upload-log.py test-log1.xml test-log1.json
