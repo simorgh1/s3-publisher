@@ -45,11 +45,11 @@ For deploying the application in a new environment, you should package and publi
 
 Using **deploy.sh** script, it would validate the sam template, build and deploy it to the configured aws region. It also adds the missing lambda notification.
 
-After deployment, please configure the environment variables for the authorizer and publish test artifacts lambda functions.
+After deployment, please configure the environment variables for the authorizer and publish artifacts lambda functions.
 
 ## Test
 
-For testing the functionality, switch to the test folder and run *upload-log.py* command, it will authenticate the client and get the signed url for uploading a test file to s3 bucket. The idea of this solution is, since S3 supports only a single file per upload, we pack our files in this example 2 files as tar.gz and upload that to S3 where it will be unpacked and processed by publishArtifacts lambda function. Please update the authorization environment variable according to the environment value you set in the authorizer function. For more information, look into the AuthorizerAPIKey variable in the sam template.
+For testing the functionality, switch to the test folder and run *upload-log.py* command, it will get the api endpoint url, pack both log files, then authenticate the client and get the signed url for uploading the packed file to s3 bucket. The idea of this solution is, since S3 supports only a single file per upload, we pack our files, in this example 2 files as tar.gz and upload them to S3 where it will be unpacked and processed by *publishArtifacts* lambda function. Please update the authorization environment variable according to the environment value you set in the authorizer function. For more information, look into the *AuthorizerAPIKey* variable in the sam template.
 
 ```python
 /workspaces/s3-publisher/app/test (main) $ python3 upload-log.py test-log1.xml test-log1.json
