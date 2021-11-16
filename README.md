@@ -3,6 +3,7 @@
 ![Visits Badge](https://badges.pufler.dev/visits/simorgh1/s3-publisher)
 [![GitHub license](https://img.shields.io/github/license/simorgh1/s3-publisher)](https://github.com/simorgh1/s3-publisher/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/simorgh1/s3-publisher)](https://github.com/simorgh1/s3-publisher/stargazers)
+[![pre-commit](https://github.com/simorgh1/s3-publisher/workflows/pre-commit/badge.svg?branch=main)](https://github.com/simorgh1/s3-publisher/actions?query=workflow%3Apre-commit+branch%3Amain)
 ![Twitter Follow](https://img.shields.io/twitter/follow/bahrammaravandi?style=social)
 ![LinkedIn Follow](https://shields.io/badge/style-bahram.maravandi-black?logo=linkedin&label=LinkedIn&link=https://www.linkedin.com/in/bahram.maravandi)
 
