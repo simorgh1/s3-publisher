@@ -1,13 +1,9 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.194.3/containers/javascript-node
 {
   "name": "S3 Publisher",
   "build": {
     "dockerfile": "Dockerfile",
-    // Update 'VARIANT' to pick a Node version: 16, 14, 12.
-    // Append -bullseye or -buster to pin to an OS version.
-    // Use the -bullseye variants if you are on a M1 mac.
-    "args": { "VARIANT": "16-bullseye" }
+    // hirsute is Ubuntu 21 and also compatible with M1 mac.
+    "args": { "VARIANT": "hirsute" }
   },
 
   // initialize docker and mount aws credentials into devcontainer
@@ -15,12 +11,12 @@
     "--init",
     "--privileged",
     "-v",
-    "${localEnv:HOME}/.aws:/home/node/.aws:ro"
+    "${localEnv:HOME}/.aws:/home/vscode/.aws:ro"
   ],
 
   "mounts": [
     "source=dind-var-lib-docker,target=/var/lib/docker,type=volume",
-    "source=pre-commit-cache,target=/home/node/.cache/pre-commit,type=volume"
+    "source=pre-commit-cache,target=/home/vscode/.cache/pre-commit,type=volume"
   ],
   "overrideCommand": false,
 
@@ -50,6 +46,6 @@
     "cschleiden.vscode-github-actions"
   ],
 
-  "remoteUser": "node",
-  "postStartCommand": "sudo chown -R node:node ~/.cache && pre-commit install"
+  "remoteUser": "vscode",
+  "postStartCommand": "sudo chown -R vscode:vscode ~/.cache && pre-commit install"
 }

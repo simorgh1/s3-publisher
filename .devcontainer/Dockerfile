@@ -1,7 +1,7 @@
-# See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.194.3/containers/javascript-node/.devcontainer/base.Dockerfile
+# See here for image contents: https://github.com/microsoft/vscode-dev-containers/blob/409c639309695ab83f0208ca6b1874cb1c196098/containers/ubuntu/README.md
 
-ARG VARIANT="16-bullseye"
-FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
+ARG VARIANT="hirsute"
+FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
 
 LABEL authors="Bahram Maravandi"
 
@@ -12,7 +12,7 @@ ARG UPGRADE_PACKAGES="false"
 # [Option] Enable non-root Docker access in container
 ARG ENABLE_NONROOT_DOCKER="true"
 # [Option] Use the OSS Moby Engine instead of the licensed Docker Engine
-ARG USE_MOBY="true"
+ARG USE_MOBY="false"
 
 # Install needed packages and setup non-root user. Use a separate RUN statement to add your
 # own dependencies. A user of "automatic" attempts to reuse an user ID if one already exists.
@@ -21,6 +21,7 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 COPY library-scripts/*.sh /tmp/library-scripts/
 RUN apt-get update \
+    && apt-get install -y nodejs npm \
     && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
     # Use Docker script from script library to set things up
     && /bin/bash /tmp/library-scripts/docker-in-docker-debian.sh "${ENABLE_NONROOT_DOCKER}" "${USERNAME}" "${USE_MOBY}" \
@@ -55,7 +56,9 @@ RUN pip3 install aws-sam-cli
 
 ### Install awscliv2 for current architecture
 
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-"$(uname -m)".zip" -o "awscliv2.zip" && \
+RUN wget "https://awscli.amazonaws.com/awscli-exe-linux-"$(uname -m)".zip" -O "awscliv2.zip" && \
     unzip awscliv2.zip && \
     ./aws/install && \
     rm awscliv2.zip
+
+USER vscode
