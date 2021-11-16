@@ -19,7 +19,7 @@ def upload_results_bucket(test_result_file, download_path):
         test_result_file = "{}/{}".format(download_path, file.name)
         upload_path = "{}-{}".format(download_path.replace("/tmp/", ""), file.name)
         s3_client.upload_file(test_result_file, ResultsBucket, upload_path)
-        logger.info("%s uploaded to %s ...", test_result_file, ResultsBucket)
+        logger.info("uploaded to %s ...", ResultsBucket)
 
 
 def publish_test_results(test_result_file, download_path):
@@ -46,7 +46,7 @@ def unpack_test_results(test_result_file, download_path):
 
             tar.extractall(path=download_path)
             tar.close()
-            logger.info("Unpacked %s to %s.", test_result_file, download_path)
+            logger.info("Unpacked %s.", test_result_file)
         except:
             logger.info("unpacking %s failed. %s", test_result_file, sys.exc_info()[0])
             return
