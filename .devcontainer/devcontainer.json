@@ -18,35 +18,38 @@
     "${localEnv:HOME}/.aws:/home/node/.aws:ro"
   ],
 
-  "mounts": ["source=dind-var-lib-docker,target=/var/lib/docker,type=volume"],
+  "mounts": [
+    "source=dind-var-lib-docker,target=/var/lib/docker,type=volume",
+    "source=pre-commit-cache,target=/home/node/.cache/pre-commit,type=volume"
+  ],
   "overrideCommand": false,
 
-  "containerEnv": {"SAM_CLI_TELEMETRY":"0"},
+  "containerEnv": { "SAM_CLI_TELEMETRY": "0" },
 
   // Set *default* container specific settings.json values on container create.
   "settings": {},
 
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
-	"dbaeumer.vscode-eslint",
-	"eamodio.gitlens",
-	"redhat.vscode-yaml",
-	"shd101wyy.markdown-preview-enhanced",
-	"oliversturm.fix-json",
-	"donjayamanne.githistory",
-	"pkief.material-icon-theme",
-	"esbenp.prettier-vscode",
-	"streetsidesoftware.code-spell-checker",
-	"amazonwebservices.aws-toolkit-vscode",
-	"oderwat.indent-rainbow",
-	"sirtori.indenticator",
-	"kddejong.vscode-cfn-lint",
-	"actboy168.tasks",
-	"ms-python.python",
-	"ms-azuretools.vscode-docker",
-	"cschleiden.vscode-github-actions"
-],
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "redhat.vscode-yaml",
+    "shd101wyy.markdown-preview-enhanced",
+    "oliversturm.fix-json",
+    "donjayamanne.githistory",
+    "pkief.material-icon-theme",
+    "esbenp.prettier-vscode",
+    "streetsidesoftware.code-spell-checker",
+    "amazonwebservices.aws-toolkit-vscode",
+    "oderwat.indent-rainbow",
+    "sirtori.indenticator",
+    "kddejong.vscode-cfn-lint",
+    "actboy168.tasks",
+    "ms-python.python",
+    "ms-azuretools.vscode-docker",
+    "cschleiden.vscode-github-actions"
+  ],
 
   "remoteUser": "node",
-  "postStartCommand": "pre-commit install"
+  "postStartCommand": "sudo chown -R node:node ~/.cache && pre-commit install"
 }
