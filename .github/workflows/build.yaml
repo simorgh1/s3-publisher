@@ -5,7 +5,7 @@ on:
     branches:
       - main
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,6 +18,11 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      # Build inside Docker containers
+      - env:
+          SAM_CLI_TELEMETRY: 0
+        # Validate the sam cloudformation template
+      - run: sam validate
+        working-directory: app
+          # Build inside Docker containers
       - run: sam build --use-container
         working-directory: app
