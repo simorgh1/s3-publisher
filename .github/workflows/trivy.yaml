@@ -16,10 +16,10 @@ jobs:
           fetch-depth: 0
 
       - name: Check app template
-        run: docker run -it --rm -v $PWD:/project -w /project public.ecr.aws/aquasecurity/trivy:0.21.0 conf --severity HIGH app/
+        run: docker run --rm -v ${{ github.workspace }}:/project -w /project public.ecr.aws/aquasecurity/trivy:0.21.0 conf --severity HIGH app/
 
       - name: Check .devcontainer Dockerfile
-        run: docker run -it --rm -v $PWD:/project -w /project public.ecr.aws/aquasecurity/trivy:0.21.0 conf --severity HIGH .devcontainer/
+        run: docker run --rm -v ${{ github.workspace }}:/project -w /project public.ecr.aws/aquasecurity/trivy:0.21.0 conf --severity HIGH .devcontainer/
 
   analyze-fs:
     name: Analyze fs
@@ -32,7 +32,7 @@ jobs:
           fetch-depth: 0
 
       - name: Check application files
-        run: docker run -it --rm -v $PWD:/project -w /project public.ecr.aws/aquasecurity/trivy:0.21.0 fs --severity HIGH app/
+        run: docker run --rm -v ${{ github.workspace }}:/project -w /project public.ecr.aws/aquasecurity/trivy:0.21.0 fs --severity HIGH app/
 
   analyze-rootfs:
     name: Analyze rootfs
@@ -45,7 +45,7 @@ jobs:
           fetch-depth: 0
 
       - name: Check rootfs
-        run: docker run -it --rm -v $PWD:/project -w /project public.ecr.aws/aquasecurity/trivy:0.21.0 rootfs --severity HIGH app/
+        run: docker run --rm -v ${{ github.workspace }}:/project -w /project public.ecr.aws/aquasecurity/trivy:0.21.0 rootfs --severity HIGH app/
 
   analyze-image:
     name: Analyze docker image
@@ -62,4 +62,4 @@ jobs:
         working-directory: .devcontainer
 
       - name: Check devcontainer image
-        run: docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock public.ecr.aws/aquasecurity/trivy:0.21.0 image --severity HIGH devcon:latest
+        run: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock public.ecr.aws/aquasecurity/trivy:0.21.0 image --severity HIGH devcon:latest
