@@ -5,11 +5,22 @@ on:
     branches: [main]
 
 jobs:
-  analyze-config:
-    name: Analyze Config
+  analyze:
+    name: Vulnerability Scan
     runs-on: ubuntu-latest
 
     steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
       - name: Checkout repository
         uses: actions/checkout@v2.4.0
         with:
@@ -21,41 +32,11 @@ jobs:
       - name: Check .devcontainer Dockerfile
         run: docker run --rm -v ${{ github.workspace }}:/project -w /project public.ecr.aws/aquasecurity/trivy:0.21.0 conf --severity HIGH .devcontainer/
 
-  analyze-fs:
-    name: Analyze fs
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2.4.0
-        with:
-          fetch-depth: 0
-
       - name: Check application files
         run: docker run --rm -v ${{ github.workspace }}:/project -w /project public.ecr.aws/aquasecurity/trivy:0.21.0 fs --severity HIGH app/
 
-  analyze-rootfs:
-    name: Analyze rootfs
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2.4.0
-        with:
-          fetch-depth: 0
-
       - name: Check rootfs
         run: docker run --rm -v ${{ github.workspace }}:/project -w /project public.ecr.aws/aquasecurity/trivy:0.21.0 rootfs --severity HIGH app/
-
-  analyze-image:
-    name: Analyze docker image
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2.4.0
-        with:
-          fetch-depth: 0
 
       - name: Build devcontainer
         run: docker build -t devcon:latest .
