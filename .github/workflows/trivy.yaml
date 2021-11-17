@@ -37,10 +37,3 @@ jobs:
 
       - name: Check rootfs
         run: docker run --rm -v ${{ github.workspace }}:/project -w /project public.ecr.aws/aquasecurity/trivy:0.21.0 rootfs --severity HIGH app/
-
-      - name: Build devcontainer
-        run: docker build -t devcon:latest .
-        working-directory: .devcontainer
-
-      - name: Check devcontainer image
-        run: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock public.ecr.aws/aquasecurity/trivy:0.21.0 image --severity HIGH devcon:latest
