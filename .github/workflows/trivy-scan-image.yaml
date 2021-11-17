@@ -8,7 +8,7 @@ on:
 
 jobs:
   scan-image:
-    name: Build and Scan docker devcontainer
+    name: Scan DevContainer
     runs-on: "ubuntu-18.04"
     steps:
       - name: Checkout code
@@ -27,6 +27,7 @@ jobs:
           template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
+          vuln-type: 'os,library'
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v1

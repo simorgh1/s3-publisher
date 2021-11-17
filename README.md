@@ -95,3 +95,18 @@ Automatic Code formatting is done using [pre-commit](https://pre-commit.com) hoo
 pre-commit manages all of your hooks using a yaml config file: _.pre-commit-config.yaml_
 
 When you run git commit command, it will first execute the configured pre-commit hooks for the staged files.
+
+## Code Analysis
+
+### Trivy
+
+[Trivy action](https://github.com/aquasecurity/trivy-action) is based on [Trivy](https://aquasecurity.github.io/trivy/v0.21.0/) vulnerability scaner.
+Using GitHub Actions, following workflows are configured:
+
+- Scanning the Dev Container image
+- Scanning IaC template and Dockerfile
+- Scanning the repository
+
+### CodeQL
+
+Using GitHub [CodeQL Action](https://github.com/github/codeql-action), semantic code analysis for python and javascript is configured.

@@ -1,0 +1,26 @@
+name: trivy-conf
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  analyze:
+    name: Vulnerability Scan IaC
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run Trivy vulnerability scanner in IaC mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'conf'
+          ignore-unfixed: true
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy IaC scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: 'trivy-results.sarif'
