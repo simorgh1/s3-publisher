@@ -107,6 +107,12 @@ Using GitHub Actions, following workflows are configured:
 - Scanning IaC template and Dockerfile
 - Scanning the repository
 
+#### Local Code analysis
+
+```bash
+vscode ➜ /workspaces/s3-publisher (main ✗) $ docker run -it --rm -v $PWD:/workspace -w /workspace aquasec/trivy:0.21.0 config --format json  --output trivy-results.json .
+```
+
 ### CodeQL
 
 Using GitHub [CodeQL Action](https://github.com/github/codeql-action), semantic code analysis for python and javascript is configured.
