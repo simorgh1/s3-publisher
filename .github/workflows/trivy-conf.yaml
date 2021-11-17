@@ -12,21 +12,21 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2.4.0
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          fetch-depth: 0
-          ref: main
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
       - name: Run Trivy vulnerability scanner in IaC mode
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'config'
-          hide-progress: false
-          ignore-unfixed: true
-          format: 'template'
-          exit-code: '1'
-          template: '@/contrib/sarif.tpl'
-          output: 'trivy-results.sarif'
-          severity: 'CRITICAL,HIGH'
+        run: |
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace public.ecr.aws/aquasecurity/trivy:0.21.0 config --format template --template @/contrib/sarif.tpl --severity CRITICAL,HIGH --output trivy-results.sarif .
 
       - name: Upload Trivy IaC scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v1
