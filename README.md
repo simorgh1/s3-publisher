@@ -19,10 +19,6 @@ This Application is designed to leverage the Serverless architecture by using th
 
 The communication flow is based on a decoupled design so that the Lambda function for uploading the test artifacts is not directly used. Instead, after a successful client authentication, an S3 signed Url is generated that is used to upload the artifacts.
 
-### Process Workflow
-
-![Workflow](s3-publisher.png)
-
 ## System Requirements
 
 - Docker
@@ -107,7 +103,7 @@ Using GitHub Actions, following workflows are configured:
 - Scanning IaC template and Dockerfile
 - Scanning the repository
 
-#### Local Code analysis
+#### Local Infrastructure as Code analysis
 
 ```bash
 vscode ➜ /workspaces/s3-publisher (main ✗) $ docker run -it --rm -v $PWD:/workspace -w /workspace aquasec/trivy:0.21.0 config --format json  --output trivy-results.json .
