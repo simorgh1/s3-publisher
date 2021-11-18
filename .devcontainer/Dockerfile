@@ -47,8 +47,12 @@ RUN apt-get update -y && \
     make \
     xdg-utils \
     python3 \
-    python3-pip && \
-    pip3 install shyaml cfn-lint pre-commit black
+    python3-pip \
+    # Clean up
+    && apt-get autoremove -y \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/ && \
+    pip3 install --no-cache-dir shyaml cfn-lint pre-commit black
 
 # Install sam
 
@@ -60,5 +64,9 @@ RUN wget "https://awscli.amazonaws.com/awscli-exe-linux-"$(uname -m)".zip" -O "a
     unzip awscliv2.zip && \
     ./aws/install && \
     rm awscliv2.zip
+
+### Cleanup unused root folders
+
+RUN rm -rf /root/.cache /root/.oh-my-*
 
 USER vscode
